@@ -18,10 +18,69 @@ Objectif :
     - derniere ligne : "     A B C D E F G H"
 """
 
-FACTEURS = [1.30, 1.15, 1.05, 0.95, 0.95, 1.05, 1.15, 1.30]
 
 # TODO: Lire 8 entiers (un par ligne) dans une liste personnes
 #       En cas d'erreur de conversion ou valeur negative -> afficher le message d'erreur et quitter
+FACTEURS = [1.30, 1.15, 1.05, 0.95, 0.95, 1.05, 1.15, 1.30]
+
+# Lire 8 entiers (un par section A à H)
+personnes = []
+try:
+    for i in range(8):
+        nb = int(input())
+        if nb < 0:
+            raise ValueError
+        personnes.append(nb)
+except ValueError:
+    print("Erreur - donnees invalides.")
+    exit()
+
+# Calculer les intensités brutes
+intensites = [personnes[i] * FACTEURS[i] for i in range(8)]
+
+# Trouver le maximum
+maxI = max(intensites)
+
+# Calculer les niveaux normalisés (0 à 10)
+if maxI == 0:
+    niveaux = [0] * 8
+else:
+    niveaux = []
+    for intensite in intensites:
+        niveau = int((intensite / maxI) * 10 + 0.5)
+        niveau = max(0, min(10, niveau))
+        niveaux.append(niveau)
+
+# Afficher la grille (lignes 10 à 1)
+for ligne in range(10, 0, -1):
+    cellules = []
+    for niveau in niveaux:
+        if niveau >= ligne:
+            cellules.append("❚")
+        else:
+            cellules.append(".")
+    print(f"{ligne:2} | " + " ".join(cellules))
+
+print("     A B C D E F G H")
+
+
+
+
+
+
+
+            
+            
+
+
+        
+    
+    
+
+
+
+
+
 
 # TODO: Calculer les intensites brutes (liste de 8 floats)
 

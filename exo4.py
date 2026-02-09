@@ -27,10 +27,35 @@ Prompts EXACTS :
 
 # TODO: Importer math
 
-# TODO: Lire hauteur_cm et longueur_m
+import math
 
-# TODO: Validation
+# Lire hauteur (cm) et longueur (m)
+hauteur_cm = float(input())
+longueur_m = float(input())
 
-# TODO: Calcul pente et angle
+# Validation
+if hauteur_cm < 0 or longueur_m <= 0:
+    print("Erreur - donnees invalides.")
+    exit()
 
-# TODO: Affichage exact (+ ligne depassement si necessaire)
+# Conversion hauteur en mètres
+hauteur_m = hauteur_cm / 100
+
+# Calcul de la pente (en %)
+pente = (hauteur_m / longueur_m) * 100
+
+# Calcul de l'angle (en radians puis en degrés)
+angle_rad = math.atan(hauteur_m / longueur_m)
+angle_deg = math.degrees(angle_rad)
+
+# Affichage
+print(f"Pente: {pente:.2f}%")
+print(f"Angle: {angle_deg:.2f} deg")
+
+# Vérification conformité (pente <= 8%)
+if pente <= 8.00:
+    print("Conforme: OUI")
+else:
+    print("Conforme: NON")
+    depassement = pente - 8.00
+    print(f"Depassement: {depassement:.2f}%")
